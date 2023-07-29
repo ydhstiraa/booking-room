@@ -212,43 +212,83 @@ $(document).on('click', '.edit-button', function(e) {
 	console.log(document.getElementById("idRuangan").value)
 });
 
-	$(document).on('click', '#update', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '#update', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-        var nama = $("#nama").val();
-        var username = $("#username").val();
-        var password = $("#password").val();
-        var email = $("#email").val();
-        var level = $("#level").val();
-		var idUser = $("#idUser").val();
+    // Ambil data form	
+    var nama = $("#nama").val();
+    var username = $("#username").val();
+    var password = $("#password").val();
+    var email = $("#email").val();
+    var level = $("#level").val();
+    var idUser = $("#idUser").val();
 
-        // Kirim data ke server menggunakan AJAX
+    // Kirim data ke server menggunakan AJAX
+    $.ajax({
+        url: "../process/edit_user.php",
+        method: "POST",
+        data: {
+            nama: nama,
+            username: username,
+            password: password,
+            email: email,
+            level: level,
+            idUser: idUser
+        },
+        success: function(response) {
+            // Tampilkan pesan sukses atau kesalahan
+            if (response === "success") {
+                $.ajax({
+                    url: "master_user.php",
+                    type: 'GET',
+                    success: function(response) {
+                        $('#mainContent').empty();
+                        $('#mainContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            } else {
+                alert("Terjadi kesalahan: " + response);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+        }
+    });
+});
+
+$(document).on('click', '.delete-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
+
+    // Ambil data form	
+    var idUser = $(this).data('id');
+    console.log("OK")
+
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
+    // if (confirmDelete) {
         $.ajax({
-            url: "../process/edit_user.php",
+            url: "../process/delete_user.php",
             method: "POST",
             data: {
-                nama: nama,
-                username: username,
-                password: password,
-                email: email,
-                level: level,
-				idUser: idUser
+                idUser: idUser
             },
             success: function(response) {
                 // Tampilkan pesan sukses atau kesalahan
                 if (response === "success") {
                     $.ajax({
-						url: "master_user.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty();
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
+                        url: "master_user.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
                 } else {
                     alert("Terjadi kesalahan: " + response);
                 }
@@ -257,86 +297,46 @@ $(document).on('click', '.edit-button', function(e) {
                 alert("Terjadi kesalahan pada permintaan AJAX: " + error);
             }
         });
-    });
+    //}
+});
 
-	$(document).on('click', '.delete-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '.active-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-		var idUser = $(this).data('id');
-        console.log("OK")
+    // Ambil data form	
+    var idUser = $(this).data('id');
 
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
-       // if (confirmDelete) {
-			$.ajax({
-				url: "../process/delete_user.php",
-				method: "POST",
-				data: {
-					idUser: idUser
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_user.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	   //}
-    });
-
-    $(document).on('click', '.active-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
-
-        // Ambil data form	
-		var idUser = $(this).data('id');
-
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
-        //if (confirmDelete) {
-			$.ajax({
-				url: "../process/active_user.php",
-				method: "POST",
-				data: {
-					idUser: idUser
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_user.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	  // }
-    });
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
+    //if (confirmDelete) {
+        $.ajax({
+            url: "../process/active_user.php",
+            method: "POST",
+            data: {
+                idUser: idUser
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses atau kesalahan
+                if (response === "success") {
+                    $.ajax({
+                        url: "master_user.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
+                } else {
+                    alert("Terjadi kesalahan: " + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+            }
+        });
+    // }
+});
 </script>

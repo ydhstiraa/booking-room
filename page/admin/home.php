@@ -5,7 +5,7 @@ session_start();
 // Cek apakah pengguna sudah login
 if (!isset($_SESSION['username'])) {
     // Jika belum login, redirect ke halaman login
-    header('Location: login.html');
+    header('Location: ../../login.php');
     exit();
 }
 
@@ -112,7 +112,7 @@ $userIdLogin = $_SESSION['userIdLogin'];
 				<div class="sidebar-content">
 					<ul class="nav">
 						<li class="nav-item active">
-							<a href="index.html">
+							<a href="dashboard.php" class="ajax-link">
 								<i class="fas fa-home"></i>
 								<p>Dashboard</p>
 							</a>
@@ -203,17 +203,10 @@ $userIdLogin = $_SESSION['userIdLogin'];
 
 		<div class="main-panel">
 			<div class="content">
-				<!-- <div class="page-inner">
-					<div class="page-header">
-						<h4 class="page-title">Starter Template</h4>
-					</div>
-					<div class="page-category">Starter Description</div>
-				</div> -->
 				<div class="page-inner">
 				<div class="mainContent" id="mainContent"></div>
 				</div>
 			</div>
-			
 		</div>
 		
 	</div>
@@ -266,6 +259,21 @@ $userIdLogin = $_SESSION['userIdLogin'];
 	
 	<script>
 	$(document).ready(function() {
+		// pertama kali halaman dibuka, load dashboard.php
+		$.ajax({
+			url: 'dashboard.php',
+			type: 'GET',
+			success: function(response) {
+				// Mengganti isi div dengan hasil respons PHP
+				$('#mainContent').empty();
+				$('#mainContent').html(response);
+			},
+			error: function(xhr, status, error) {
+				console.log(error);
+			}
+		});
+
+		//merubah div mainContent dengan menu yang dipilih
 		// Menangani klik pada tautan dengan class "ajax-link"
 		$('.ajax-link').click(function(e) {
 			e.preventDefault(); // Mencegah tindakan default mengikuti tautan
@@ -279,6 +287,7 @@ $userIdLogin = $_SESSION['userIdLogin'];
 				type: 'GET',
 				success: function(response) {
 					// Mengganti isi div dengan hasil respons PHP
+					$('#mainContent').empty();
 					$('#mainContent').html(response);
 				},
 				error: function(xhr, status, error) {
@@ -286,6 +295,7 @@ $userIdLogin = $_SESSION['userIdLogin'];
 				}
 			});
 		});
+		
 	});
 	</script>
 	

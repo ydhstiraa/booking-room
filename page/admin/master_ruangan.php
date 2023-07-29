@@ -188,39 +188,79 @@ $(document).on('click', '.edit-button', function(e) {
 	console.log(document.getElementById("idRuangan").value)
 });
 
-	$(document).on('click', '#update', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '#update', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-        var namaRuangan = $("#nama").val();
-        var kapasitas = $("#kapasitas").val();
-        var deskripsi = $("#deskripsi").val();
-		var idRuangan = $("#idRuangan").val();
+    // Ambil data form	
+    var namaRuangan = $("#nama").val();
+    var kapasitas = $("#kapasitas").val();
+    var deskripsi = $("#deskripsi").val();
+    var idRuangan = $("#idRuangan").val();
 
-        // Kirim data ke server menggunakan AJAX
+    // Kirim data ke server menggunakan AJAX
+    $.ajax({
+        url: "../process/edit_ruangan.php",
+        method: "POST",
+        data: {
+            nama: namaRuangan,
+            kapasitas: kapasitas,
+            deskripsi: deskripsi,
+            idRuangan: idRuangan
+        },
+        success: function(response) {
+            // Tampilkan pesan sukses atau kesalahan
+            if (response === "success") {
+                $.ajax({
+                    url: "master_ruangan.php",
+                    type: 'GET',
+                    success: function(response) {
+                        $('#mainContent').empty();
+                        $('#mainContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            } else {
+                alert("Terjadi kesalahan: " + response);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+        }
+    });
+});
+
+$(document).on('click', '.delete-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
+
+    // Ambil data form	
+    var idRuangan = $(this).data('id');
+    console.log("OK")
+
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
+    // if (confirmDelete) {
         $.ajax({
-            url: "../process/edit_ruangan.php",
+            url: "../process/delete_ruangan.php",
             method: "POST",
             data: {
-                nama: namaRuangan,
-                kapasitas: kapasitas,
-                deskripsi: deskripsi,
-				idRuangan: idRuangan
+                idRuangan: idRuangan
             },
             success: function(response) {
                 // Tampilkan pesan sukses atau kesalahan
                 if (response === "success") {
                     $.ajax({
-						url: "master_ruangan.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty();
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
+                        url: "master_ruangan.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
                 } else {
                     alert("Terjadi kesalahan: " + response);
                 }
@@ -229,86 +269,46 @@ $(document).on('click', '.edit-button', function(e) {
                 alert("Terjadi kesalahan pada permintaan AJAX: " + error);
             }
         });
-    });
+    //}
+});
 
-	$(document).on('click', '.delete-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '.active-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-		var idRuangan = $(this).data('id');
-        console.log("OK")
+    // Ambil data form	
+    var idRuangan = $(this).data('id');
 
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
-       // if (confirmDelete) {
-			$.ajax({
-				url: "../process/delete_ruangan.php",
-				method: "POST",
-				data: {
-					idRuangan: idRuangan
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_ruangan.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	   //}
-    });
-
-    $(document).on('click', '.active-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
-
-        // Ambil data form	
-		var idRuangan = $(this).data('id');
-
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
-        //if (confirmDelete) {
-			$.ajax({
-				url: "../process/active_ruangan.php",
-				method: "POST",
-				data: {
-					idRuangan: idRuangan
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_ruangan.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	  // }
-    });
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
+    //if (confirmDelete) {
+        $.ajax({
+            url: "../process/active_ruangan.php",
+            method: "POST",
+            data: {
+                idRuangan: idRuangan
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses atau kesalahan
+                if (response === "success") {
+                    $.ajax({
+                        url: "master_ruangan.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
+                } else {
+                    alert("Terjadi kesalahan: " + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+            }
+        });
+    // }
+});
 </script>

@@ -167,35 +167,75 @@ $(document).on('click', '.edit-button', function(e) {
 	console.log(document.getElementById("idAlat").value)
 });
 
-	$(document).on('click', '#update', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '#update', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-        var namaAlat = $("#nama").val();
-		var idAlat = $("#idAlat").val();
+    // Ambil data form	
+    var namaAlat = $("#nama").val();
+    var idAlat = $("#idAlat").val();
 
-        // Kirim data ke server menggunakan AJAX
+    // Kirim data ke server menggunakan AJAX
+    $.ajax({
+        url: "../process/edit_alat.php",
+        method: "POST",
+        data: {
+            nama: namaAlat,
+            idAlat: idAlat
+        },
+        success: function(response) {
+            // Tampilkan pesan sukses atau kesalahan
+            if (response === "success") {
+                $.ajax({
+                    url: "master_alat.php",
+                    type: 'GET',
+                    success: function(response) {
+                        $('#mainContent').empty();
+                        $('#mainContent').html(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                })
+            } else {
+                alert("Terjadi kesalahan: " + response);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+        }
+    });
+});
+
+$(document).on('click', '.delete-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
+
+    // Ambil data form	
+    var idAlat = $(this).data('id');
+    console.log("OK")
+
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
+    // if (confirmDelete) {
         $.ajax({
-            url: "../process/edit_alat.php",
+            url: "../process/delete_alat.php",
             method: "POST",
             data: {
-                nama: namaAlat,
-				idAlat: idAlat
+                idAlat: idAlat
             },
             success: function(response) {
                 // Tampilkan pesan sukses atau kesalahan
                 if (response === "success") {
                     $.ajax({
-						url: "master_alat.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty();
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
+                        url: "master_alat.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
                 } else {
                     alert("Terjadi kesalahan: " + response);
                 }
@@ -204,86 +244,46 @@ $(document).on('click', '.edit-button', function(e) {
                 alert("Terjadi kesalahan pada permintaan AJAX: " + error);
             }
         });
-    });
+    //}
+});
 
-	$(document).on('click', '.delete-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
+$(document).on('click', '.active-button', function(e) {
+    e.preventDefault(); // Mencegah reload halaman
 
-        // Ambil data form	
-		var idAlat = $(this).data('id');
-        console.log("OK")
+    // Ambil data form	
+    var idAlat = $(this).data('id');
 
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Menonaktifkan?');
-       // if (confirmDelete) {
-			$.ajax({
-				url: "../process/delete_alat.php",
-				method: "POST",
-				data: {
-					idAlat: idAlat
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_alat.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	   //}
-    });
-
-    $(document).on('click', '.active-button', function(e) {
-        e.preventDefault(); // Mencegah reload halaman
-
-        // Ambil data form	
-		var idAlat = $(this).data('id');
-
-        // Kirim data ke server menggunakan AJAX
-		// var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
-        //if (confirmDelete) {
-			$.ajax({
-				url: "../process/active_alat.php",
-				method: "POST",
-				data: {
-					idAlat: idAlat
-				},
-				success: function(response) {
-					// Tampilkan pesan sukses atau kesalahan
-					if (response === "success") {
-						$.ajax({
-							url: "master_alat.php",
-							type: 'GET',
-							success: function(response) {
-								$('#mainContent').empty()
-								$('#mainContent').html(response);
-							},
-							error: function(xhr, status, error) {
-								console.log(error);
-							}
-						})
-					} else {
-						alert("Terjadi kesalahan: " + response);
-					}
-				},
-				error: function(xhr, status, error) {
-					alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-				}
-			});
-	  // }
-    });
+    // Kirim data ke server menggunakan AJAX
+    // var confirmDelete = confirm('Apakah Anda yakin ingin Mengaktifkan?');
+    //if (confirmDelete) {
+        $.ajax({
+            url: "../process/active_alat.php",
+            method: "POST",
+            data: {
+                idAlat: idAlat
+            },
+            success: function(response) {
+                // Tampilkan pesan sukses atau kesalahan
+                if (response === "success") {
+                    $.ajax({
+                        url: "master_alat.php",
+                        type: 'GET',
+                        success: function(response) {
+                            $('#mainContent').empty()
+                            $('#mainContent').html(response);
+                        },
+                        error: function(xhr, status, error) {
+                            console.log(error);
+                        }
+                    })
+                } else {
+                    alert("Terjadi kesalahan: " + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
+            }
+        });
+    // }
+});
 </script>

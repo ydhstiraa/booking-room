@@ -12,100 +12,100 @@ $result = $conn->query($selectDataTable);
 						<h4 class="page-title">Booking Portal</h4>
 </div>
 <div class="col-md-12">
-							<div class="card">
-								<div class="card-header">
-									<h4 class="card-title">Multi Filter Select</h4>
-								</div>
-								<div class="card-body">
-                <input type="hidden" id="user_id" value=<?=$userIdLogin?>>
-									<div class="table-responsive">
-										<table id="multi-filter-select" class="display table table-striped table-hover" >
-											<thead>
-												<tr>
-													<th>No.</th>
-													<th>Nama Pemesan</th>
-                          <th>Ruangan</th>
-													<th>Tanggal</th>
-													<th>Jam Mulai</th>
-													<th>Jam Selesai</th>
-													<th>Jumlah Kursi</th>
-                          <th>Nomor WA</th>
-                          <th>Email</th>
-                          <th>Status</th>
-                          <th>Keterangan</th>
-													<th>Approval</th>
-												</tr>
-											</thead>
-											<tbody>
-												<?php 
-                                                
-                                                if ($result->num_rows > 0) {
-                                                    // Menampilkan data dalam tabel
-                                                    $no = 1;
-                                                    while ($row = $result->fetch_assoc()) {
-                                                        echo "<tr>";
-                                                        echo "<td><a href='javascript:void(0);' class='detail-button' data-id='" . $row['id'] . "'>" . $no . "</a></td>";
-                                                        echo "<td>" . $row['nama_pemesan'] . "</td>";
-                                                        echo "<td>" . $row['nama'] . "</td>";
-                                                        echo "<td>" . $row['tanggal_pemesanan'] . "</td>";
-                                                        echo "<td>" . $row['jam_mulai'] . "</td>";
-                                                        echo "<td>" . $row['jam_selesai'] . "</td>";
-                                                        echo "<td>" . $row['jumlah_kursi'] . "</td>";
-                                                        echo "<td>" . $row['no_wa'] . "</td>";
-                                                        echo "<td>" . $row['email'] . "</td>";
-                                                        echo "<td>" . $row['status'] . "</td>";
-                                                        echo "<td>" . $row['keterangan'] . "</td>";
-														echo "<td>";
-														if ($row['status'] == "Approved") {
-															echo "<a href='javascript:void(0);' class='confirm-button btn btn-success btn-round btn-xs' data-id='" . $row['id'] . "'>Confirm</a>";
-														}else{
-                                                            echo "<a href='javascript:void(0);' class='done-button btn btn-primary btn-round btn-xs' data-id='" . $row['id'] . "'>Done</a>";
-                                                        }
-														echo "</td>";
-                                                        echo "</tr>";
-                                                        $no++;
-                                                    };
-                                                };
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title">Multi Filter Select</h4>
+    </div>
+    <div class="card-body">
+    <input type="hidden" id="user_id" value=<?=$userIdLogin?>>
+      <div class="table-responsive">
+        <table id="multi-filter-select" class="display table table-striped table-hover" >
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>Nama Pemesan</th>
+              <th>Ruangan</th>
+              <th>Tanggal</th>
+              <th>Jam Mulai</th>
+              <th>Jam Selesai</th>
+              <th>Jumlah Kursi</th>
+              <th>Nomor WA</th>
+              <th>Email</th>
+              <th>Status</th>
+              <th>Keterangan</th>
+              <th>Approval</th>
+            </tr>
+          </thead>
+          <tbody>
+          <?php 
+            if ($result->num_rows > 0) {
+                // Menampilkan data dalam tabel
+                $no = 1;
+                while ($row = $result->fetch_assoc()) {
+                    echo "<tr>";
+                    echo "<td><a href='javascript:void(0);' class='detail-button' data-id='" . $row['id'] . "'>" . $no . "</a></td>";
+                    echo "<td>" . $row['nama_pemesan'] . "</td>";
+                    echo "<td>" . $row['nama'] . "</td>";
+                    echo "<td>" . $row['tanggal_pemesanan'] . "</td>";
+                    echo "<td>" . $row['jam_mulai'] . "</td>";
+                    echo "<td>" . $row['jam_selesai'] . "</td>";
+                    echo "<td>" . $row['jumlah_kursi'] . "</td>";
+                    echo "<td>" . $row['no_wa'] . "</td>";
+                    echo "<td>" . $row['email'] . "</td>";
+                    echo "<td>" . $row['status'] . "</td>";
+                    echo "<td>" . $row['keterangan'] . "</td>";
+                    echo "<td>";
 
-                                                ?>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-						</div>
+                    if ($row['status'] == "Approved") {
+                        echo "<a href='javascript:void(0);' class='confirm-button btn btn-success btn-round btn-xs' data-id='" . $row['id'] . "'>Confirm</a>";
+                    } else {
+                        echo "<a href='javascript:void(0);' class='done-button btn btn-primary btn-round btn-xs' data-id='" . $row['id'] . "'>Done</a>";
+                    }
 
-                        <script>
-		$(document).ready(function() {
-			$('#basic-datatables').DataTable({
-			});
+                    echo "</td>";
+                    echo "</tr>";
+                    $no++;
+                }
+            };
+          ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
 
-			$('#multi-filter-select').DataTable( {
-				"pageLength": 10,
-				initComplete: function () {
-					this.api().columns().every( function () {
-						var column = this;
-						var select = $('<select class="form-control"><option value=""></option></select>')
-						.appendTo( $(column.footer()).empty() )
-						.on( 'change', function () {
-							var val = $.fn.dataTable.util.escapeRegex(
-								$(this).val()
-								);
+<script>
+  $(document).ready(function() {
+    $('#basic-datatables').DataTable({
+    });
 
-							column
-							.search( val ? '^'+val+'$' : '', true, false )
-							.draw();
-						} );
+    $('#multi-filter-select').DataTable( {
+      "pageLength": 10,
+      initComplete: function () {
+        this.api().columns().every( function () {
+          var column = this;
+          var select = $('<select class="form-control"><option value=""></option></select>')
+          .appendTo( $(column.footer()).empty() )
+          .on( 'change', function () {
+            var val = $.fn.dataTable.util.escapeRegex(
+              $(this).val()
+              );
 
-						column.data().unique().sort().each( function ( d, j ) {
-							select.append( '<option value="'+d+'">'+d+'</option>' )
-						} );
-					} );
-				}
-			});
-		});
-	</script>
-	<script>
+            column
+            .search( val ? '^'+val+'$' : '', true, false )
+            .draw();
+          } );
+
+          column.data().unique().sort().each( function ( d, j ) {
+            select.append( '<option value="'+d+'">'+d+'</option>' )
+          } );
+        } );
+      }
+    });
+  });
+</script>
+<script>
 $(document).ready(function() {
   $('.confirm-button').click(function(e) {
     e.preventDefault();
