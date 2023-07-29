@@ -7,6 +7,8 @@ $alat = $conn->query($sql);
 
 $sql2 = "SELECT pemesanan.*, ruangan.nama as nama_ruangan from pemesanan left join ruangan on pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Confirmed'";
 $event = $conn->query($sql2);
+
+$ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
 ?>
 
 <!DOCTYPE html>
@@ -195,8 +197,11 @@ $event = $conn->query($sql2);
     </div>
     <div class="form-floating mb-3">
         <select class="form-control" name="ruangan" id="ruangan" data-sb-validations="required" >
-            <option value="1">Ruang Mabar</option>
-            <option value="2">Ruang Nobar</option>
+            <?php
+                while ($data = $ruangan->fetch_assoc()) {
+                    echo "<option value='".$data['id']."'>".$data['nama']."</option>";
+                }
+            ?>
         </select>
         <label for="ruangan">Ruangan</label>
         <div class="invalid-feedback" data-sb-feedback="ruangan:required">Ruangan yang akan di booking wajib diisi.</div>

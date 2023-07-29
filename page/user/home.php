@@ -149,53 +149,6 @@ $userIdLogin = $_SESSION['userIdLogin'];
 								</ul>
 							</div>
 						</li>
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#forms">
-								<i class="fas fa-pen-square"></i>
-								<p>Master</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="forms">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="master_user.php" class="ajax-link">
-											<span class="sub-item">User</span>
-										</a>
-									</li>
-									<li>
-									<a href="master_ruangan.php" class="ajax-link">
-											<span class="sub-item">Ruangan</span>
-										</a>
-									</li>
-									<li>
-										<a href="master_alat.php" class="ajax-link">
-											<span class="sub-item">Alat</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
-						<li class="nav-item">
-							<a data-toggle="collapse" href="#charts">
-								<i class="far fa-chart-bar"></i>
-								<p>Laporan</p>
-								<span class="caret"></span>
-							</a>
-							<div class="collapse" id="charts">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="laporan1.php" class="ajax-link">
-											<span class="sub-item">Laporan 1</span>
-										</a>
-									</li>
-									<li>
-										<a href="charts/sparkline.html">
-											<span class="sub-item">Sparkline</span>
-										</a>
-									</li>
-								</ul>
-							</div>
-						</li>
 					</ul>
 				</div>
 			</div>
