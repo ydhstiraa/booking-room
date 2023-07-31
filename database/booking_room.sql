@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2023 at 05:13 PM
+-- Generation Time: Jul 31, 2023 at 04:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,8 +38,9 @@ CREATE TABLE `alat` (
 --
 
 INSERT INTO `alat` (`id`, `nama`, `status`) VALUES
-(0, 'Laptop Asus', 'Active'),
-(1, 'Proyektor Lenovo', 'Active');
+(1, 'Laptop Asus', 'Active'),
+(2, 'Proyektor Lenovo', 'Active'),
+(3, 'Sound System Portable', 'Active');
 
 -- --------------------------------------------------------
 
@@ -53,29 +54,6 @@ CREATE TABLE `detail_alat` (
   `alat_id` int(11) DEFAULT NULL,
   `jumlah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `detail_alat`
---
-
-INSERT INTO `detail_alat` (`id`, `pemesanan_id`, `alat_id`, `jumlah`) VALUES
-(1, 50, 0, NULL),
-(2, 52, 0, NULL),
-(3, 52, 1, NULL),
-(4, 53, 0, NULL),
-(5, 53, 0, NULL),
-(6, 53, 1, NULL),
-(7, 53, 1, NULL),
-(8, 54, 0, NULL),
-(9, 54, 1, NULL),
-(10, 56, 0, NULL),
-(11, 56, 1, NULL),
-(12, 58, 0, NULL),
-(13, 58, 1, NULL),
-(14, 59, 0, NULL),
-(15, 59, 1, NULL),
-(16, 60, 0, NULL),
-(17, 60, 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -179,7 +157,8 @@ CREATE TABLE `ruangan` (
 INSERT INTO `ruangan` (`id`, `nama`, `kapasitas`, `deskripsi`, `status`) VALUES
 (1, 'Ruang Mabar', 40, 'Ruang untuk mabar terdapat meja dan kursi monitor', 'Active'),
 (2, 'Ruang Nobar', 30, 'Ruang nobar untuk Nonton Bareng turnament online tanpa meja dan kursi', 'Active'),
-(5, 'asd', 123, '123tambah kursi baru 5 juta', 'Active');
+(5, 'asd', 123, '123tambah kursi baru 5 juta', 'Inactive'),
+(6, 'Lapangan Basket', 100, 'Lapangan basket seluas 1 hektar', 'Active');
 
 -- --------------------------------------------------------
 
@@ -291,6 +270,12 @@ ALTER TABLE `validasi`
 --
 
 --
+-- AUTO_INCREMENT for table `alat`
+--
+ALTER TABLE `alat`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `detail_alat`
 --
 ALTER TABLE `detail_alat`
@@ -312,7 +297,7 @@ ALTER TABLE `pemesanan`
 -- AUTO_INCREMENT for table `ruangan`
 --
 ALTER TABLE `ruangan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -325,36 +310,6 @@ ALTER TABLE `users`
 --
 ALTER TABLE `validasi`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `detail_alat`
---
-ALTER TABLE `detail_alat`
-  ADD CONSTRAINT `detail_alat_ibfk_1` FOREIGN KEY (`pemesanan_id`) REFERENCES `pemesanan` (`id`),
-  ADD CONSTRAINT `detail_alat_ibfk_2` FOREIGN KEY (`alat_id`) REFERENCES `alat` (`id`);
-
---
--- Constraints for table `log`
---
-ALTER TABLE `log`
-  ADD CONSTRAINT `fk_pemesanan_id` FOREIGN KEY (`pemesanan_id`) REFERENCES `pemesanan` (`id`),
-  ADD CONSTRAINT `log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
---
--- Constraints for table `pemesanan`
---
-ALTER TABLE `pemesanan`
-  ADD CONSTRAINT `pemesanan_ibfk_1` FOREIGN KEY (`ruangan_id`) REFERENCES `ruangan` (`id`);
-
---
--- Constraints for table `validasi`
---
-ALTER TABLE `validasi`
-  ADD CONSTRAINT `validasi_ibfk_1` FOREIGN KEY (`pemesanan_id`) REFERENCES `pemesanan` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
