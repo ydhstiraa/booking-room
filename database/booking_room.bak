@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 06:45 PM
+-- Generation Time: Jul 31, 2023 at 04:40 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -55,24 +55,6 @@ CREATE TABLE `detail_alat` (
   `jumlah` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `detail_alat`
---
-
-INSERT INTO `detail_alat` (`id`, `pemesanan_id`, `alat_id`, `jumlah`) VALUES
-(18, 64, 1, NULL),
-(19, 65, 1, NULL),
-(20, 66, 1, NULL),
-(21, 67, 1, NULL),
-(22, 69, 1, NULL),
-(23, 70, 2, NULL),
-(24, 71, 2, NULL),
-(25, 72, 2, NULL),
-(26, 73, 1, NULL),
-(27, 73, 2, NULL),
-(28, 73, 3, NULL),
-(29, 74, 3, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -119,23 +101,7 @@ INSERT INTO `log` (`id`, `user_id`, `status`, `timestamp`, `pemesanan_id`) VALUE
 (27, 1, 'Confirmed', '2023-07-23 10:25:41', 63),
 (28, 1, 'Finished', '2023-07-23 10:26:29', 63),
 (29, 1, 'Approved', '2023-07-23 10:28:23', 61),
-(30, 1, 'Confirmed', '2023-07-23 10:28:35', 61),
-(31, 1, 'Canceled', '2023-08-02 12:34:43', 64),
-(32, 1, 'Approved', '2023-08-02 15:03:48', 69),
-(33, 1, 'Approved', '2023-08-02 15:05:30', 67),
-(34, 1, 'Approved', '2023-08-02 15:05:53', 66),
-(35, 1, 'Canceled', '2023-08-02 15:06:20', 68),
-(36, 1, 'Approved', '2023-08-02 15:07:27', 65),
-(37, 1, 'Approved', '2023-08-02 15:14:12', 72),
-(38, 1, 'Approved', '2023-08-02 15:15:48', 72),
-(39, 1, 'Canceled', '2023-08-02 15:21:59', 71),
-(40, 3, 'Approved', '2023-08-02 15:47:43', 70),
-(41, 3, 'Approved', '2023-08-02 16:20:30', 73),
-(42, 3, 'Confirmed', '2023-08-02 16:23:08', 73),
-(43, 3, 'Approved', '2023-08-02 16:34:44', 74),
-(44, 3, 'Finished', '2023-08-02 16:37:27', 73),
-(45, 3, 'Confirmed', '2023-08-02 16:37:36', 74),
-(46, 3, 'Finished', '2023-08-02 16:38:08', 74);
+(30, 1, 'Confirmed', '2023-07-23 10:28:35', 61);
 
 -- --------------------------------------------------------
 
@@ -168,17 +134,7 @@ INSERT INTO `pemesanan` (`id`, `ruangan_id`, `nama_pemesan`, `tanggal_pemesanan`
 (60, 2, 'bambang kopling joko wkwkwk', '2023-07-21', '16:00:00', '20:00:00', 'Confirmed', 12, '089669208080', 'ayundakismawati512@gmail.com', 'wkkwkwk', '2023-07-22 03:46:18'),
 (61, 2, 'Yudhistira', '2023-07-28', '13:00:00', '20:00:00', 'Confirmed', 15, '089669208080', 'ayundakismawati512@gmail.com', 'Gathering AOV', '2023-07-22 05:41:07'),
 (62, 1, 'Freyana Putri', '2023-07-24', '16:00:00', '20:00:00', 'Confirmed', 0, '089669208080', 'freyana@email.com', 'meet and greet fans JKT48', '2023-07-23 07:56:18'),
-(63, 1, 'Gath AOV', '2023-07-25', '15:00:00', '21:00:00', 'Finished', 40, '089522986696', 'dandyjp12@gmail.com', 'gathering aov', '2023-07-23 10:22:33'),
-(64, 1, 'Wahyu', '2023-08-31', '12:00:00', '15:00:00', 'Cancel', 1, '088776664475', 'wahyu@email.com', 'Nobar IBL', '2023-08-02 12:31:59'),
-(65, 1, 'yudhistira', '2023-12-13', '15:00:00', '20:00:00', 'Approved', 1, '089667788', 'ownedbyid512@gmail.com', 'Meeting', '2023-08-02 14:37:45'),
-(66, 1, 'yudhistira', '2023-12-13', '15:00:00', '20:00:00', 'Approved', 1, '089667788', 'ownedbyid512@gmail.com', 'Meeting', '2023-08-02 14:38:19'),
-(67, 1, 'yudhistira', '2023-12-13', '15:00:00', '20:00:00', 'Approved', 1, '089667788', 'ownedbyid512@gmail.com', 'Meeting', '2023-08-02 14:38:52'),
-(69, 1, 'yudhistira', '2023-12-13', '15:00:00', '20:00:00', 'Approved', 1, '089667788', 'ownedbyid512@gmail.com', 'Meeting', '2023-08-02 14:42:33'),
-(70, 1, 'Yudhistira', '2004-02-01', '15:00:00', '16:00:00', 'Approved', 1, '089778899', 'ownedbyid512@gmail.com', 'Meet', '2023-08-02 15:09:08'),
-(71, 1, 'Yudhistira', '2004-02-01', '15:00:00', '16:00:00', 'Cancel', 1, '089778899', 'ownedbyid512@gmail.com', 'Meet', '2023-08-02 15:10:57'),
-(72, 1, 'Zaelani', '2004-02-01', '15:00:00', '16:00:00', 'Approved', 1, '089778899', 'ownedbyid512@gmail.com', 'Meet', '2023-08-02 15:13:48'),
-(73, 1, 'Ucok', '2023-08-16', '14:00:00', '17:00:00', 'Finished', 24, '08952898018', 'tamlarin7@gmail.com', 'main bareng', '2023-08-02 16:19:00'),
-(74, 6, 'bencok', '2023-08-14', '15:00:00', '17:00:00', 'Finished', 0, '0893339910', 'tamlarin7@gmail.com', 'basket bossss', '2023-08-02 16:31:49');
+(63, 1, 'Gath AOV', '2023-07-25', '15:00:00', '21:00:00', 'Finished', 40, '089522986696', 'dandyjp12@gmail.com', 'gathering aov', '2023-07-23 10:22:33');
 
 -- --------------------------------------------------------
 
@@ -255,18 +211,7 @@ INSERT INTO `validasi` (`id`, `pemesanan_id`, `kode_validasi`, `kode_tracking`, 
 (3, 60, NULL, '64bb510a4b076', 'Active', '2023-07-22 03:46:18'),
 (4, 61, NULL, '64bb6bf38c01d', 'Active', '2023-07-22 05:41:07'),
 (5, 62, NULL, '64bcdd22bdc10', 'Active', '2023-07-23 07:56:18'),
-(6, 63, NULL, '64bcff698805b', 'Active', '2023-07-23 10:22:33'),
-(7, 64, NULL, '64ca4cbfeab70', 'Active', '2023-08-02 12:31:59'),
-(8, 65, NULL, '64ca6a397a710', 'Active', '2023-08-02 14:37:45'),
-(9, 66, NULL, '64ca6a5bba82c', 'Active', '2023-08-02 14:38:19'),
-(10, 67, NULL, '64ca6a7cd7234', 'Active', '2023-08-02 14:38:52'),
-(11, 68, NULL, '64ca6a822158f', 'Active', '2023-08-02 14:38:58'),
-(12, 69, NULL, '64ca6b592bcb3', 'Active', '2023-08-02 14:42:33'),
-(13, 70, NULL, '64ca7194aa675', 'Active', '2023-08-02 15:09:08'),
-(14, 71, NULL, '64ca7201d9c35', 'Active', '2023-08-02 15:10:57'),
-(15, 72, NULL, '64ca72ac5d270', 'Active', '2023-08-02 15:13:48'),
-(16, 73, NULL, '64ca81f495d2b', 'Active', '2023-08-02 16:19:00'),
-(17, 74, NULL, '64ca84f560844', 'Active', '2023-08-02 16:31:49');
+(6, 63, NULL, '64bcff698805b', 'Active', '2023-07-23 10:22:33');
 
 --
 -- Indexes for dumped tables
@@ -334,19 +279,19 @@ ALTER TABLE `alat`
 -- AUTO_INCREMENT for table `detail_alat`
 --
 ALTER TABLE `detail_alat`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `log`
 --
 ALTER TABLE `log`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `pemesanan`
 --
 ALTER TABLE `pemesanan`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `ruangan`
@@ -364,7 +309,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `validasi`
 --
 ALTER TABLE `validasi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
