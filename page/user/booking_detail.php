@@ -13,7 +13,7 @@ $sql2 = "SELECT * FROM detail_alat LEFT JOIN alat ON detail_alat.alat_id = alat.
 $result2 = $conn->query($sql2);
 
 //select log tracking
-$sql3 = "SELECT log.*, users.nama AS nama_user FROM log JOIN users ON log.user_id = users.id where log.pemesanan_id = $id order by timestamp desc";
+$sql3 = "SELECT log.*, users.nama AS nama_user FROM log JOIN users ON log.user_id = users.id where log.pemesanan_id = $id order by timestamp asc";
 $result3 = $conn->query($sql3);
 
 //select kode tracking 

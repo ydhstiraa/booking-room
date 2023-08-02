@@ -5,7 +5,7 @@ include("./config/connect.php");
 $sql = "SELECT id, nama FROM alat where status = 'Active'";
 $alat = $conn->query($sql);
 
-$sql2 = "SELECT pemesanan.*, ruangan.nama as nama_ruangan from pemesanan left join ruangan on pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Confirmed'";
+$sql2 = "SELECT pemesanan.*, ruangan.nama as nama_ruangan from pemesanan left join ruangan on pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Confirmed' order by tanggal_pemesanan asc";
 $event = $conn->query($sql2);
 
 $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
@@ -98,6 +98,7 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
                             <th>Ruangan</th>
                             <th>Tanggal</th>
                             <th>Jam Mulai</th>
+                            <th>Jam Seelsai</th>
                         </tr>
                         <?php 
                         
@@ -107,6 +108,7 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
                             echo "<td>".$row2['nama_ruangan']."</td>";
                             echo "<td>".$row2['tanggal_pemesanan']."</td>";
                             echo "<td>".$row2['jam_mulai']."</td>";
+                            echo "<td>".$row2['jam_selesai']."</td>";
                             echo "</tr>";
                         }
 

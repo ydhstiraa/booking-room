@@ -90,14 +90,19 @@
                 echo "Error: " . $sql . "<br>" . $conn->error;
             }
         }
-        echo " <div class='card mt-4 ' id='submitSuccessMessage'>
-        <div class='text-center mb-3'>
-            <div class='fw-bolder'>Form submission successful!</div>
-            Kode Tracking Kamu ".$kode_unik."
-            <br />
-            <a href='../../index.php'>Home</a>
-        </div>
-    </div> ";
+        echo " 
+        <input type='hidden' id='nama' value='".$namaPemesan."'>
+        <input type='hidden' id='email' value='".$email."'>
+        <input type='hidden' id='kode' value='".$kode_unik."'>
+        <div class='card mt-4 ' id='submitSuccessMessage'>
+            <div class='text-center mb-3'>
+                <div class='fw-bolder'>Form submission successful!</div>
+                Kode Booking / Tracking Kamu ".$kode_unik."
+                <br />
+                <div class='fw-bolder'>Periksa email kamu secara berkala</div>
+                <a href='../../index.php'>Home</a>
+            </div>
+        </div> ";
         } else {
         echo "Terjadi kesalahan: " . $sql . "<br>" . $conn->error;
         }
@@ -117,5 +122,41 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+        <script src="../../assets/js/core/jquery.3.2.1.min.js"></script>
+        <script>
+        $(document).ready(function() {
+            // Mendapatkan nilai ID dari data attribute
+            var nama = document.getElementById('nama').value
+            var email = document.getElementById('email').value
+            var kode = document.getElementById('kode').value
+
+            // Mengirim permintaan AJAX ke server
+            $.ajax({
+            url: '../../config/mail.php',
+            method: 'POST',
+            data: { 
+                type : 'input',
+                nama,
+                email,
+                kode,
+                },
+            success: function(response) {
+                // Memperbarui status pada halaman secara dinamis
+                if (response === 'success') {
+                // Status berhasil diubah
+                alert('Email berhasil terkirim!.');
+                // Lakukan perubahan pada tampilan sesuai kebutuhan (misalnya, ubah warna tombol)
+                } else {
+                // Terjadi kesalahan saat mengubah status
+                alert('Terjadi kesalahan saat mengubah status: ' + response);
+                }
+            },
+            error: function(xhr, status, error) {
+                // Kesalahan pada permintaan AJAX
+                alert('Terjadi kesalahan pada permintaan AJAX: ' + error);
+            }
+            });
+        });
+        </script>
     </body>
 </html>

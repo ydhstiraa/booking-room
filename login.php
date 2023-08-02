@@ -60,6 +60,9 @@ if (isset($_SESSION['username'])) {
 				</div>
 				<div class="form-action mb-3">
 					<input type="submit" class="btn btn-primary btn-rounded btn-login" value="Sign In">
+					<br>
+					<br>
+					<a href="index.php" class="btn btn-danger btn-rounded">Homepage</a>
 				</div>
 			</div>
 		</div>

@@ -4,7 +4,7 @@ session_start();
 $userIdLogin = $_SESSION['userIdLogin'];
 
 // Query SQL
-$selectDataTable = "SELECT pemesanan.*, ruangan.nama FROM pemesanan LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Approved' || pemesanan.status = 'Confirmed'";
+$selectDataTable = "SELECT pemesanan.*, ruangan.nama, validasi.kode_tracking FROM pemesanan left join validasi on pemesanan.id = validasi.pemesanan_id LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Approved' || pemesanan.status = 'Confirmed'";
 $result = $conn->query($selectDataTable);
 ?>
 
@@ -23,6 +23,7 @@ $result = $conn->query($selectDataTable);
           <thead>
             <tr>
               <th>No.</th>
+              <th>Kode Tracking</th>
               <th>Nama Pemesan</th>
               <th>Ruangan</th>
               <th>Tanggal</th>
@@ -44,6 +45,7 @@ $result = $conn->query($selectDataTable);
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td><a href='javascript:void(0);' class='detail-button' data-id='" . $row['id'] . "'>" . $no . "</a></td>";
+                    echo "<td>" . $row['kode_tracking'] . "</td>";
                     echo "<td>" . $row['nama_pemesan'] . "</td>";
                     echo "<td>" . $row['nama'] . "</td>";
                     echo "<td>" . $row['tanggal_pemesanan'] . "</td>";

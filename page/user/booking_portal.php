@@ -4,7 +4,7 @@ session_start();
 $userIdLogin = $_SESSION['userIdLogin'];
 
 // Query SQL
-$selectDataTable = "SELECT pemesanan.*, ruangan.nama FROM pemesanan LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status != 'Confirmed' && pemesanan.status != 'Finished' ORDER BY timestamp DESC";
+$selectDataTable = "SELECT pemesanan.*, ruangan.nama, validasi.kode_tracking FROM pemesanan left join validasi on pemesanan.id = validasi.pemesanan_id LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Pending' ORDER BY timestamp DESC";
 $result = $conn->query($selectDataTable);
 ?>
 
@@ -23,6 +23,7 @@ $result = $conn->query($selectDataTable);
           <thead>
             <tr>
               <th>No.</th>
+              <th>Kode Booking</th>
               <th>Nama Pemesan</th>
               <th>Ruangan</th>
               <th>Tanggal</th>
@@ -44,6 +45,7 @@ $result = $conn->query($selectDataTable);
                 while ($row = $result->fetch_assoc()) {
                     echo "<tr>";
                     echo "<td><a href='javascript:void(0);' class='detail-button' data-id='" . $row['id'] . "'>" . $no . "</a></td>";
+                    echo "<td>" . $row['kode_tracking'] . "</td>";
                     echo "<td>" . $row['nama_pemesan'] . "</td>";
                     echo "<td>" . $row['nama'] . "</td>";
                     echo "<td>" . $row['tanggal_pemesanan'] . "</td>";
@@ -56,12 +58,16 @@ $result = $conn->query($selectDataTable);
                     echo "<td>" . $row['keterangan'] . "</td>";
                     echo "<td>";
 
-                    if ($row['status'] == "Approved") {
-                        echo "<a href='javascript:void(0);' class='cancel-button btn btn-danger btn-round btn-xs' data-id='" . $row['id'] . "'>Cancel</a>";
-                    }
-                    if ($row['status'] == "Pending" || $row['status'] == "Cancel") {
-                        echo "<a href='javascript:void(0);' class='approve-button btn btn-warning btn-round btn-xs' data-id='" . $row['id'] . "'>Approve</a>";
-                    }
+                    // if ($row['status'] == "Approved") {
+                    //     echo "<a href='javascript:void(0);' class='cancel-button btn btn-danger btn-round btn-xs' data-id='" . $row['id'] . "'>Cancel</a>";
+                    // }
+                    // if ($row['status'] == "Pending" || $row['status'] == "Cancel") {
+                    //     echo "<a href='javascript:void(0);' class='approve-button btn btn-warning btn-round btn-xs' data-id='" . $row['id'] . "'>Approve</a>";
+                    // }
+                    
+                    echo "<a href='javascript:void(0);' class='approve-button btn btn-warning btn-round btn-xs' data-id='" . $row['id'] . "'>Approve</a>";
+                    echo "<a href='javascript:void(0);' class='cancel-button btn btn-danger btn-round btn-xs' data-id='" . $row['id'] . "'>Cancel</a>";
+
 
                     echo "</td>";
                     echo "</tr>";
@@ -114,8 +120,13 @@ $(document).ready(function() {
 
     // Mendapatkan nilai ID dari data attribute
     var id = $(this).data('id');
-	var user_id = document.getElementById('user_id').value
+	  var user_id = document.getElementById('user_id').value
 
+    var row = $(this).closest('tr');
+    var nama = row.find('td:eq(2)').text();
+    var email = row.find('td:eq(9)').text();
+    var kode = row.find('td:eq(1)').text();
+    
     // Mengirim permintaan AJAX ke server
     $.ajax({
       url: '../process/approve_booking.php',
@@ -133,7 +144,25 @@ $(document).ready(function() {
 				url: "booking_portal.php",
 				type: 'GET',
 				success: function(response) {
+          $.ajax({
+            url: '../../config/mail.php',
+            method: 'POST',
+            data: { 
+                type : 'Approve',
+                nama,
+                email,
+                kode
+                },
+            success: function(response) {
+              console.log("Sent")
+            },
+            error: function(xhr, status, error) {
+                // Kesalahan pada permintaan AJAX
+                alert('Terjadi kesalahan pada permintaan AJAX: ' + error);
+            }
+            });
 					$('#mainContent').html(response);
+          
 				},
 				error: function(xhr, status, error) {
 					console.log(error);
@@ -159,7 +188,12 @@ $(document).ready(function() {
 
     // Mendapatkan nilai ID dari data attribute
     var id = $(this).data('id');
-	var user_id = document.getElementById('user_id').value
+	  var user_id = document.getElementById('user_id').value
+
+    var row = $(this).closest('tr');
+    var nama = row.find('td:eq(2)').text();
+    var email = row.find('td:eq(9)').text();
+    var kode = row.find('td:eq(1)').text();
 	
     // Mengirim permintaan AJAX ke server
     $.ajax({
@@ -177,6 +211,23 @@ $(document).ready(function() {
 				url: "booking_portal.php",
 				type: 'GET',
 				success: function(response) {
+          $.ajax({
+            url: '../../config/mail.php',
+            method: 'POST',
+            data: { 
+                type : 'Cancel',
+                nama,
+                email,
+                kode
+                },
+            success: function(response) {
+              console.log("Sent!!")
+            },
+            error: function(xhr, status, error) {
+                // Kesalahan pada permintaan AJAX
+                alert('Terjadi kesalahan pada permintaan AJAX: ' + error);
+            }
+            });
 					$('#mainContent').html(response);
 				},
 				error: function(xhr, status, error) {
