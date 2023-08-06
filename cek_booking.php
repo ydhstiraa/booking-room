@@ -10,9 +10,11 @@ include("config/connect.php");
     $sql = "SELECT *, pemesanan.timestamp as dibuat, log.status as status_pemesanan FROM validasi left join pemesanan on validasi.pemesanan_id = pemesanan.id left join log on pemesanan.id = log.pemesanan_id left join users on log.user_id = users.id where kode_tracking='$kode_tracking' GROUP BY log.id";
     $result4 = $conn->query($sql);
 	// $row3 = $result4->fetch_assoc();
+
+	if ($result4->num_rows > 0) {
 ?>
 
-<table class="table table-hover text-white">
+<table class="table table-hover text-white mt-3">
 				<thead>
 					<tr>
 						<th>Timestamp</th>
@@ -37,3 +39,11 @@ include("config/connect.php");
 					?>
 				</tbody>
 			</table>
+<?php
+	}else{
+?>
+	<!-- <h4 class="text-white text-center mt-2"></h4> -->
+	<script>alert("Data yang kamu masukkan salah, Cek kembali kode Booking / Tracking kamu")</script>
+<?php
+	}
+?>

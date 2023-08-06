@@ -28,9 +28,11 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
         <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic" rel="stylesheet" type="text/css" />
         <!-- SimpleLightbox plugin CSS-->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.css" rel="stylesheet" />
+        
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link href="css/my-styles.css" rel="stylesheet" />
+        
     </head>
     <body id="page-top">
         <!-- Navigation-->
@@ -190,77 +192,76 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
                 </div>
                 <div class="row gx-4 gx-lg-5 justify-content-center mb-5">
                     <div class="col-lg-6">
-                    <form id="contactForm" action="./page/process/input_booking.php" method="POST">
-    <!-- Nama Pemesan input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="nama_pemesan" name="nama_pemesan" type="text" placeholder="Masukkan nama lengkap Anda..." data-sb-validations="required" />
-        <label for="nama_pemesan">Nama Pemesan</label>
-        <div class="invalid-feedback" data-sb-feedback="nama_pemesan:required">Nama Pemesan wajib diisi.</div>
-    </div>
-    <div class="form-floating mb-3">
-        <select class="form-control" name="ruangan" id="ruangan" data-sb-validations="required" >
-            <?php
-                while ($data = $ruangan->fetch_assoc()) {
-                    echo "<option value='".$data['id']."'>".$data['nama']."</option>";
-                }
-            ?>
-        </select>
-        <label for="ruangan">Ruangan</label>
-        <div class="invalid-feedback" data-sb-feedback="ruangan:required">Ruangan yang akan di booking wajib diisi.</div>
-    </div>
-    <!-- Tanggal Pemesanan input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="tanggal_pemesanan" name="tanggal_pemesanan" type="date" data-sb-validations="required" />
-        <label for="tanggal_pemesanan">Tanggal Pemesanan</label>
-        <div class="invalid-feedback" data-sb-feedback="tanggal_pemesanan:required">Tanggal Pemesanan wajib diisi.</div>
-    </div>
-    <!-- Jam Mulai input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="jam_mulai" name="jam_mulai" type="time" data-sb-validations="required" />
-        <label for="jam_mulai">Jam Mulai</label>
-        <div class="invalid-feedback" data-sb-feedback="jam_mulai:required">Jam Mulai wajib diisi.</div>
-    </div>
-    <!-- Jam Selesai input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="jam_selesai" name="jam_selesai" type="time" data-sb-validations="required" />
-        <label for="jam_selesai">Jam Selesai</label>
-        <div class="invalid-feedback" data-sb-feedback="jam_selesai:required">Jam Selesai wajib diisi.</div>
-    </div>
-    <!-- Jumlah Kursi input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="jumlah_kursi" name="jumlah_kursi" type="number" placeholder="Masukkan jumlah kursi..." data-sb-validations="required" />
-        <label for="jumlah_kursi">Jumlah Kursi</label>
-        <div class="invalid-feedback" data-sb-feedback="jumlah_kursi:required">Jumlah Kursi wajib diisi.</div>
-    </div>
-    <div class="form-floating mb-3">
-    <?php 
-    
-    while ($row = $alat->fetch_assoc()) {
-        $id = $row['id'];
-        $nama = $row['nama'];
+                    <form id="contactForm" action="page/process/input_booking.php" method="POST">
+                        <!-- Nama Pemesan input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="nama_pemesan" name="nama_pemesan" type="text" placeholder="Masukkan nama lengkap Anda..." required />
+                            <label for="nama_pemesan">Nama Pemesan</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <select class="form-control" name="ruangan" id="ruangan" data-sb-validations="required" required>
+                                <?php
+                                    while ($data = $ruangan->fetch_assoc()) {
+                                        echo "<option value='".$data['id']."'>".$data['nama']."</option>";
+                                    }
+                                ?>
+                            </select>
+                            <label for="ruangan">Ruangan</label>
+                            <div class="invalid-feedback" data-sb-feedback="ruangan:required">Ruangan yang akan di booking wajib diisi.</div>
+                        </div>
+                        <!-- Tanggal Pemesanan input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="tanggal_pemesanan" name="tanggal_pemesanan" type="date" data-sb-validations="required" required/>
+                            <label for="tanggal_pemesanan">Tanggal Pemesanan</label>
+                            <div class="invalid-feedback" data-sb-feedback="tanggal_pemesanan:required">Tanggal Pemesanan wajib diisi.</div>
+                        </div>
+                        <!-- Jam Mulai input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="jam_mulai" name="jam_mulai" type="time" data-sb-validations="required" required/>
+                            <label for="jam_mulai">Jam Mulai</label>
+                            <div class="invalid-feedback" data-sb-feedback="jam_mulai:required">Jam Mulai wajib diisi.</div>
+                        </div>
+                        <!-- Jam Selesai input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="jam_selesai" name="jam_selesai" type="time" data-sb-validations="required" required/>
+                            <label for="jam_selesai">Jam Selesai</label>
+                            <div class="invalid-feedback" data-sb-feedback="jam_selesai:required">Jam Selesai wajib diisi.</div>
+                        </div>
+                        <!-- Jumlah Kursi input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="jumlah_kursi" name="jumlah_kursi" type="number" placeholder="Masukkan jumlah kursi..." data-sb-validations="required" />
+                            <label for="jumlah_kursi">Jumlah Kursi</label>
+                            <div class="invalid-feedback" data-sb-feedback="jumlah_kursi:required">Jumlah Kursi wajib diisi.</div>
+                        </div>
+                        <div class="form-floating mb-3">
+                        <?php 
+                        
+                        while ($row = $alat->fetch_assoc()) {
+                            $id = $row['id'];
+                            $nama = $row['nama'];
 
-        echo "<input type='checkbox' name='alat[]' id='alat' value='$id'> $nama<br>";
-    }
-    
-    ?>
-    </div>
-    <!-- Nomor WhatsApp input -->
-    <div class="form-floating mb-3">
-        <input class="form-control" id="no_wa" name="no_wa" type="tel" placeholder="Masukkan nomor WhatsApp Anda..." data-sb-validations="required" />
-        <label for="no_wa">Nomor WhatsApp</label>
-        <div class="invalid-feedback" data-sb-feedback="no_wa:required">Nomor WhatsApp wajib diisi.</div>
-    </div>
-    <div class="form-floating mb-3">
-        <input class="form-control" id="email" name="email" type="email" placeholder="Masukkan Email Anda..." data-sb-validations="required" />
-        <label for="email">Email</label>
-        <div class="invalid-feedback" data-sb-feedback="no_wa:required">Email wajib diisi.</div>
-    </div>
-    <!-- Keterangan input -->
-    <div class="form-floating mb-3">
-        <textarea class="form-control" id="keterangan" name="keterangan" placeholder="Masukkan Keperluan..." style="height: 10rem" data-sb-validations="required"></textarea>
-        <label for="keterangan">Keperluan</label>
-        <div class="invalid-feedback" data-sb-feedback="keterangan:required">Keperluan wajib diisi.</div>
-    </div>
+                            echo "<input type='checkbox' name='alat[]' id='alat' value='$id'> $nama<br>";
+                        }
+                        
+                        ?>
+                        </div>
+                        <!-- Nomor WhatsApp input -->
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="no_wa" name="no_wa" type="tel" placeholder="Masukkan nomor WhatsApp Anda..." data-sb-validations="required" required/>
+                            <label for="no_wa">Nomor WhatsApp</label>
+                            <div class="invalid-feedback" data-sb-feedback="no_wa:required">Nomor WhatsApp wajib diisi.</div>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input class="form-control" id="email" name="email" type="email" placeholder="Masukkan Email Anda..." data-sb-validations="required" required/>
+                            <label for="email">Email</label>
+                            <div class="invalid-feedback" data-sb-feedback="no_wa:required">Email wajib diisi.</div>
+                        </div>
+                        <!-- Keterangan input -->
+                        <div class="form-floating mb-3">
+                            <textarea class="form-control" id="keterangan" name="keterangan" placeholder="Masukkan Keperluan..." style="height: 10rem" data-sb-validations="required" required></textarea>
+                            <label for="keterangan">Keperluan</label>
+                            <div class="invalid-feedback" data-sb-feedback="keterangan:required">Keperluan wajib diisi.</div>
+                        </div>
 
                             <!-- Submit success message-->
                             <!---->
@@ -309,6 +310,25 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">Close</button>
+                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                    </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
@@ -330,11 +350,22 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
         <script src="assets/js/core/jquery.3.2.1.min.js"></script>
         <script>
             $(document).ready(function() {
+            // $('#closeModal').click(function(e) {
+            //     $('#exampleModal').remove('#exampleModal');
+            // })
+
+            var form_data = $('#contactForm').serialize();
+            // if ($('#myForm')[0].checkValidity()) {
+            //     console.log("walid")
+            // }else{
+            //     console.log('tidak valid')
+            // }
+
             $('.cek-tracking').click(function(e) {
                 e.preventDefault();
 
                     var kode_tracking = $("#kode_booking").val();
-
+                    console.log(kode_tracking)
                 // Mengirim permintaan AJAX ke server
                 $.ajax({
                 url: 'cek_booking.php',
@@ -342,7 +373,7 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
                 data: { kode_tracking : kode_tracking
                 },
                 success: function(response) {
-                    $('#data_tracking').html(response);
+                        $('#data_tracking').html(response); 
                 },
                 error: function(xhr, status, error) {
                     // Kesalahan pada permintaan AJAX
