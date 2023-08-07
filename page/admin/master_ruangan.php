@@ -131,37 +131,43 @@ $(document).ready(function() {
         var kapasitas = $("#kapasitas").val();
         var deskripsi = $("#deskripsi").val();
 
-        // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            url: "../process/input_ruangan.php",
-            method: "POST",
-            data: {
-                nama: namaRuangan,
-                kapasitas: kapasitas,
-                deskripsi: deskripsi
-            },
-            success: function(response) {
-                // Tampilkan pesan sukses atau kesalahan
-                if (response === "success") {
-                    $.ajax({
-						url: "master_ruangan.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty()
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
-                } else {
-                    alert("Terjadi kesalahan: " + response);
+        if (namaRuangan == "" || kapasitas == "" || deskripsi == "") {
+            alert("Data tidak boleh kosong")
+        }else{
+            // Kirim data ke server menggunakan AJAX
+            $.ajax({
+                url: "../process/input_ruangan.php",
+                method: "POST",
+                data: {
+                    nama: namaRuangan,
+                    kapasitas: kapasitas,
+                    deskripsi: deskripsi
+                },
+                success: function(response) {
+                    // Tampilkan pesan sukses atau kesalahan
+                    if (response === "success") {
+                        $.ajax({
+                            url: "master_ruangan.php",
+                            type: 'GET',
+                            success: function(response) {
+                                $('#mainContent').empty()
+                                $('#mainContent').html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        })
+                    } else {
+                        alert("Terjadi kesalahan: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan pada permintaan AJAX: " + error);
                 }
-            },
-            error: function(xhr, status, error) {
-                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-            }
-        });
+            });
+        }
+        
+        
     });
 });
 

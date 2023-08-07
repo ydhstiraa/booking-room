@@ -151,39 +151,43 @@ $(document).ready(function() {
         var email = $("#email").val();
         var level = $("#level").val();
 
-        // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            url: "../process/input_user.php",
-            method: "POST",
-            data: {
-                nama: nama,
-                username: username,
-                password: password,
-                email: email,
-                level: level
-            },
-            success: function(response) {
-                // Tampilkan pesan sukses atau kesalahan
-                if (response === "success") {
-                    $.ajax({
-						url: "master_user.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty()
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
-                } else {
-                    alert("Terjadi kesalahan: " + response);
+        if (nama == "" || username == "" || password == "" || email == "" || level == "") {
+            alert("Data tidak boleh kosong")
+        }else{
+            // Kirim data ke server menggunakan AJAX
+            $.ajax({
+                url: "../process/input_user.php",
+                method: "POST",
+                data: {
+                    nama: nama,
+                    username: username,
+                    password: password,
+                    email: email,
+                    level: level
+                },
+                success: function(response) {
+                    // Tampilkan pesan sukses atau kesalahan
+                    if (response === "success") {
+                        $.ajax({
+                            url: "master_user.php",
+                            type: 'GET',
+                            success: function(response) {
+                                $('#mainContent').empty()
+                                $('#mainContent').html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        })
+                    } else {
+                        alert("Terjadi kesalahan: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan pada permintaan AJAX: " + error);
                 }
-            },
-            error: function(xhr, status, error) {
-                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-            }
-        });
+            });
+        }
     });
 });
 

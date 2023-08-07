@@ -2,7 +2,7 @@
 <div class="card">
     <div></div>
     <div class="card-body">
-    <h1>JUDUL LAPORAN 1</h1>
+    <h1>Laporan Booking per Periode</h1>
             <table>
                 <tr>
                     <td>Tanggal Awal</td>
@@ -32,20 +32,23 @@ $(document).ready(function() {
         var tgl_awal = $("#tgl_awal").val();
         var tgl_akhir = $("#tgl_akhir").val();
 
-    // Mengirim permintaan AJAX ke server
-    $.ajax({
-      url: '../process/laporan_1.php',
-      method: 'POST',
-      data: { tgl_awal : tgl_awal, tgl_akhir : tgl_akhir
-	},
-      success: function(response) {
-        $('#hasil_laporan').html(response);
-      },
-      error: function(xhr, status, error) {
-        // Kesalahan pada permintaan AJAX
-        alert('Terjadi kesalahan pada permintaan AJAX: ' + error);
-      }
-    });
+    if (tgl_awal == "" || tgl_akhir == "") {
+      alert("Range tanggal tidak boleh kosong")
+    }else{
+      // Mengirim permintaan AJAX ke server
+      $.ajax({
+        url: '../process/laporan_1.php',
+        method: 'POST',
+        data: { tgl_awal : tgl_awal, tgl_akhir : tgl_akhir},
+        success: function(response) {
+          $('#hasil_laporan').html(response);
+        },
+        error: function(xhr, status, error) {
+          // Kesalahan pada permintaan AJAX
+          alert('Terjadi kesalahan pada permintaan AJAX: ' + error);
+        }
+      });
+    }
   });
 });
 

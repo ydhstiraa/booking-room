@@ -185,12 +185,7 @@ $userIdLogin = $_SESSION['userIdLogin'];
 								<ul class="nav nav-collapse">
 									<li>
 										<a href="laporan1.php" class="ajax-link">
-											<span class="sub-item">Laporan 1</span>
-										</a>
-									</li>
-									<li>
-										<a href="charts/sparkline.html">
-											<span class="sub-item">Sparkline</span>
+											<span class="sub-item">Laporan Booking</span>
 										</a>
 									</li>
 								</ul>

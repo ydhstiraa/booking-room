@@ -19,7 +19,7 @@ $result2 = $conn->query($selectRuangan);
 					<input type="hidden" id="idAlat" value="" readonly>
                         <div class="form-group col-md-6">
                             <label for="nama">Nama Alat</label>
-                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Alat">
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan Nama Alat" required>
                         </div>
                     </div>
                     <div id="optionButton">
@@ -118,34 +118,38 @@ $(document).ready(function() {
         var namaAlat = $("#nama").val();
 
         // Kirim data ke server menggunakan AJAX
-        $.ajax({
-            url: "../process/input_alat.php",
-            method: "POST",
-            data: {
-                nama: namaAlat
-            },
-            success: function(response) {
-                // Tampilkan pesan sukses atau kesalahan
-                if (response === "success") {
-                    $.ajax({
-						url: "master_alat.php",
-						type: 'GET',
-						success: function(response) {
-							$('#mainContent').empty()
-							$('#mainContent').html(response);
-						},
-						error: function(xhr, status, error) {
-							console.log(error);
-						}
-					})
-                } else {
-                    alert("Terjadi kesalahan: " + response);
+        if (namaAlat == "") {
+            alert("data tidak boleh kosong")
+        }else{
+            $.ajax({
+                url: "../process/input_alat.php",
+                method: "POST",
+                data: {
+                    nama: namaAlat
+                },
+                success: function(response) {
+                    // Tampilkan pesan sukses atau kesalahan
+                    if (response === "success") {
+                        $.ajax({
+                            url: "master_alat.php",
+                            type: 'GET',
+                            success: function(response) {
+                                $('#mainContent').empty()
+                                $('#mainContent').html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                console.log(error);
+                            }
+                        })
+                    } else {
+                        alert("Terjadi kesalahan: " + response);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert("Terjadi kesalahan pada permintaan AJAX: " + error);
                 }
-            },
-            error: function(xhr, status, error) {
-                alert("Terjadi kesalahan pada permintaan AJAX: " + error);
-            }
-        });
+            });
+        }
     });
 });
 
