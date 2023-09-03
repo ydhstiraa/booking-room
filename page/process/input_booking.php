@@ -52,6 +52,7 @@
     //     }
     // }
     
+    //generate ko booking
     function generateKodeUnik() {
         return uniqid();
     }
@@ -72,13 +73,13 @@
         $kode_unik = generateKodeUnik();
     }while (isKodeUnikExists($kode_unik, $conn));
     
-
+    //insert data pemesanan
     $sql = "INSERT INTO pemesanan ( ruangan_id, nama_pemesan, tanggal_pemesanan, jam_mulai, jam_selesai, jumlah_kursi, no_wa, email, keterangan)
         VALUES ( '$ruangan', '$namaPemesan', '$tanggalPemesanan', '$jamMulai', '$jamSelesai', '$jumlahKursi', '$nomorWA', '$email', '$keterangan')";
         
     if ($conn->query($sql) === TRUE) {
         $inserted_id = $conn->insert_id;
-        // echo $inserted_id;
+        // insert data kode booking ke pemesanan
         $sql2 = "INSERT INTO validasi (pemesanan_id, kode_tracking) VALUES ('$inserted_id', '$kode_unik')";
             if ($conn->query($sql2) === TRUE) {
                 echo "Kode unik berhasil disimpan: $kode_unik";
