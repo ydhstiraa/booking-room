@@ -3,10 +3,14 @@ include("../../config/connect.php");
 session_start();
 $userIdLogin = $_SESSION['userIdLogin'];
 
-// Query SQL
-$selectDataTable = "SELECT pemesanan.*, ruangan.nama, validasi.kode_tracking FROM pemesanan left join validasi on pemesanan.id = validasi.pemesanan_id LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Pending' ORDER BY timestamp DESC";
+// Query approved only gak bisa cancel kalo udah approve
+$selectDataTable = "SELECT pemesanan.*, ruangan.nama, validasi.kode_tracking FROM pemesanan left join validasi on pemesanan.id = validasi.pemesanan_id LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status = 'Pending' && pemesanan.status = 'Approved' ORDER BY timestamp DESC";
+
+//query approved masih bisa cancel begitu pula sebaliknya
+// $selectDataTable = "SELECT pemesanan.*, ruangan.nama, validasi.kode_tracking FROM pemesanan left join validasi on pemesanan.id = validasi.pemesanan_id LEFT JOIN ruangan ON pemesanan.ruangan_id = ruangan.id where pemesanan.status != 'Confirmed' ORDER BY timestamp DESC";
+
 $result = $conn->query($selectDataTable);
-?>
+// ?>
 
 <div class="page-header">
 	<h4 class="page-title">Booking Portal</h4>

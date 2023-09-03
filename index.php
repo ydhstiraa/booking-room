@@ -124,56 +124,56 @@ $ruangan = mysqli_query($conn, "SELECT * FROM ruangan WHERE status = 'Active'");
             <div class="container-fluid p-0">
                 <div class="row g-0">
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/1.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/1.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/1.jpg" title="Resepsionis">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/1.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Resepsionis</div>
+                                <div class="project-name">Meja resepsionis</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/2.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/2.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/2.jpg" title="Resepsionis">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/2.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Resepsionis</div>
+                                <div class="project-name">Meja resepsionis</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/3.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/3.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/3.jpg" title="Lobby">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/3.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Lobby</div>
+                                <div class="project-name">Lobby garena gamming & comunity hub</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/4.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/4.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/4.jpg" title="Lobby">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/4.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Lobby</div>
+                                <div class="project-name">Lobby garena gamming & comunity hub</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/5.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/5.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/5.jpg" title="Ruang Nobar">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/5.jpg" alt="..." />
                             <div class="portfolio-box-caption">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Ruang Nobar</div>
+                                <div class="project-name">Ruangan nonton bareng</div>
                             </div>
                         </a>
                     </div>
                     <div class="col-lg-4 col-sm-6">
-                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/6.jpg" title="Project Name">
-                            <img class="img-fluid" src="assets/img/portfolio/thumbnails/6.jpg" alt="..." />
+                        <a class="portfolio-box" href="assets/img/portfolio/fullsize/6.jpg" title="Ruang Mabar">
+                            <img class="img-fluid" src="assets/img/portfolio/fullsize/6.jpg" alt="..." />
                             <div class="portfolio-box-caption p-3">
-                                <div class="project-category text-white-50">Category</div>
-                                <div class="project-name">Project Name</div>
+                                <div class="project-category text-white-50">Ruang Mabar</div>
+                                <div class="project-name">Ruang Main Bareng</div>
                             </div>
                         </a>
                     </div>
